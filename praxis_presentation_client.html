@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praxis — Артём Бендер · artem-bender.fr</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;
+  --fg:#e8e8ec;--fg2:#a0a0a8;--fg3:#66666e;
+  --accent:#e8364e;--accent2:#7c6aff;--accent3:#2dd4bf;
+  --sage:#8B9D83;--sage-l:#a8b8a0;--sage-d:#6b7d63;--cream:#F5F0E8;--cream2:#f8f6f0;--charcoal:#2d2a26;
+  --border:rgba(255,255,255,.08);
+  --fd:"Space Grotesk",sans-serif;--fb:"DM Sans",sans-serif;--fm:"JetBrains Mono",monospace;
+  --fs:"Cormorant Garamond",serif;--fbody:"Manrope",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+.pres-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:.8rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,11,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.pres-nav .logo{font-family:var(--fs);font-weight:500;font-size:1.1rem;letter-spacing:-.01em;color:var(--fg)}
+.pres-nav .logo span{color:var(--sage-l)}
+.pres-nav .nav-links{display:flex;gap:.3rem}
+.pres-nav .nav-links a{font-size:.75rem;color:var(--fg3);text-decoration:none;padding:.5rem .9rem;border-radius:6px;transition:all .2s;font-weight:500}
+.pres-nav .nav-links a:hover{color:var(--fg);background:rgba(255,255,255,.05)}
+.pres-nav .nav-links a.active{color:var(--sage-l);background:rgba(139,157,131,.08)}
+
+/* ── SECTIONS ── */
+.pres-section{min-height:100vh;padding:6rem 3rem;position:relative;display:flex;flex-direction:column;justify-content:center}
+.pres-section.narrow{max-width:960px;margin:0 auto}
+.pres-section.wide{max-width:1200px;margin:0 auto}
+
+.section-num{font-family:var(--fm);font-size:.65rem;color:var(--sage);letter-spacing:.15em;margin-bottom:1rem;opacity:.7}
+.section-title{font-family:var(--fs);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:400;line-height:1.15;margin-bottom:1.5rem}
+.section-title em{font-style:italic;color:var(--sage-l)}
+.section-subtitle{font-size:1rem;color:var(--fg2);line-height:1.7;max-width:580px;margin-bottom:2.5rem}
+
+/* ── MOCKUP CARDS ── */
+.mockup-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .35s cubic-bezier(.16,1,.3,1)}
+.mockup-card:hover{border-color:rgba(139,157,131,.35);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.mockup-card .mockup-label{padding:1rem 1.4rem .6rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.mockup-card .mockup-label .ml-badge{font-family:var(--fm);font-size:.55rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;padding:.2rem .5rem;border-radius:4px;background:rgba(139,157,131,.12);color:var(--sage-l)}
+.mockup-card .mockup-label h4{font-family:var(--fd);font-size:.9rem;font-weight:600}
+.mockup-card .mockup-label p{font-size:.7rem;color:var(--fg3);margin-top:.2rem}
+
+.mu-viewport{overflow:hidden;position:relative;border-radius:0 0 14px 14px}
+.mu-inner{transform-origin:top left;width:900px}
+.mu-mobile-viewport{overflow:hidden;position:relative;border-radius:0 0 14px 14px}
+.mu-mobile-inner{transform-origin:top left;width:375px}
+.mu-email-viewport{overflow:hidden;position:relative;border-radius:0 0 14px 14px}
+.mu-email-inner{transform-origin:top left;width:680px}
+
+/* ── LANDING MOCKUP ── */
+.lp{width:900px;height:620px;position:relative;overflow:hidden;font-family:var(--fbody);background:var(--cream);color:var(--charcoal)}
+.lp *{box-sizing:border-box;margin:0;padding:0}
+.lp-nav{display:flex;align-items:center;padding:14px 40px;justify-content:space-between;border-bottom:1px solid rgba(139,157,131,.15)}
+.lp-nav-logo{font-family:var(--fs);font-size:18px;font-weight:500;color:var(--charcoal)}
+.lp-nav-links{display:flex;gap:18px;font-size:11px;color:rgba(45,42,38,.5);font-weight:500}
+.lp-nav-links .active-link{color:var(--sage);font-weight:600}
+.lp-nav-cta{font-size:11px;color:var(--sage);border:1px solid var(--sage);border-radius:6px;padding:5px 14px;font-weight:500}
+.lp-nav-lang{font-size:10px;color:rgba(45,42,38,.35);letter-spacing:.08em}
+.lp-hero{padding:36px 48px 0;text-align:center}
+.lp-hero-label{font-size:11px;color:var(--sage);letter-spacing:.08em;margin-bottom:12px;font-weight:500}
+.lp-hero h1{font-family:var(--fs);font-size:34px;font-weight:400;line-height:1.2;color:var(--charcoal);margin-bottom:12px;max-width:520px;margin-left:auto;margin-right:auto}
+.lp-hero h1 em{font-style:italic;color:var(--sage)}
+.lp-hero-sub{font-size:12px;color:rgba(45,42,38,.6);line-height:1.65;max-width:440px;margin:0 auto 16px}
+.lp-hero-cta{display:inline-block;padding:8px 24px;background:var(--sage);color:#fff;border-radius:8px;font-size:12px;font-weight:500}
+.lp-approach{display:flex;gap:16px;padding:14px 40px}
+.lp-method{flex:1;background:#fff;border-radius:8px;padding:12px 14px;border:1px solid rgba(139,157,131,.1)}
+.lp-method-name{font-family:var(--fs);font-size:12px;font-weight:600;color:var(--sage);margin-bottom:3px}
+.lp-method-text{font-size:8.5px;color:rgba(45,42,38,.5);line-height:1.45}
+.lp-edu{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 40px}
+.lp-edu-item{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#fff;border-radius:5px;border:1px solid rgba(139,157,131,.06)}
+.lp-edu-name{font-size:8.5px;font-weight:600;color:var(--charcoal)}
+.lp-edu-deg{font-size:7.5px;color:rgba(45,42,38,.4)}
+.lp-pricing{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:8px 40px}
+.lp-price-card{background:#fff;border-radius:7px;padding:12px;text-align:center;border:1px solid rgba(139,157,131,.08)}
+.lp-price-label{font-size:9.5px;color:var(--sage);font-weight:500;margin-bottom:3px}
+.lp-price-value{font-family:var(--fs);font-size:16px;font-weight:500;color:var(--charcoal)}
+.lp-price-note{font-size:7.5px;color:rgba(45,42,38,.4);margin-top:2px}
+.lp-cta{background:var(--sage);border-radius:8px;padding:16px;text-align:center;margin:8px 40px 10px}
+.lp-cta h3{font-family:var(--fs);font-size:16px;font-weight:400;color:#fff;margin-bottom:8px}
+.lp-cta h3 em{font-style:italic}
+.lp-cta-btn{display:inline-block;padding:7px 20px;background:#fff;color:var(--sage);border-radius:5px;font-size:10.5px;font-weight:600}
+.lp-footer{padding:10px 40px;display:flex;justify-content:space-between;border-top:1px solid rgba(139,157,131,.08);font-size:8.5px;color:rgba(45,42,38,.3)}
+.lp-footer-social{display:flex;gap:8px}
+.lp-footer-social span{width:16px;height:16px;border-radius:50%;background:rgba(139,157,131,.18);display:flex;align-items:center;justify-content:center;font-size:6px;color:var(--sage)}
+
+/* ── MOBILE LANDING ── */
+.lp-mobile{width:375px;height:720px;background:var(--cream);overflow:hidden;font-family:var(--fbody)}
+.lp-m-nav{display:flex;align-items:center;padding:10px 16px;justify-content:space-between;border-bottom:1px solid rgba(139,157,131,.12)}
+.lp-m-logo{font-family:var(--fs);font-size:14px;font-weight:500;color:var(--charcoal)}
+.lp-m-burger{width:18px;height:14px;display:flex;flex-direction:column;gap:3px}
+.lp-m-burger span{display:block;height:1.5px;background:rgba(45,42,38,.3);border-radius:1px}
+.lp-m-hero{padding:22px 16px 0;text-align:center}
+.lp-m-hero-label{font-size:9px;color:var(--sage);letter-spacing:.06em;margin-bottom:10px;font-weight:500}
+.lp-m-hero h1{font-family:var(--fs);font-size:21px;font-weight:400;line-height:1.25;color:var(--charcoal);margin-bottom:7px}
+.lp-m-hero h1 em{font-style:italic;color:var(--sage)}
+.lp-m-hero-sub{font-size:9.5px;color:rgba(45,42,38,.55);line-height:1.5;margin-bottom:10px}
+.lp-m-cta{display:inline-block;padding:7px 16px;background:var(--sage);color:#fff;border-radius:5px;font-size:9.5px;font-weight:500}
+.lp-m-section{padding:12px 16px}
+.lp-m-section-label{font-size:8.5px;color:var(--sage);font-weight:500;margin-bottom:5px;letter-spacing:.05em}
+.lp-m-method{background:#fff;border-radius:5px;padding:8px 10px;border:1px solid rgba(139,157,131,.06);margin-bottom:5px}
+.lp-m-method-name{font-family:var(--fs);font-size:10px;font-weight:600;color:var(--sage);margin-bottom:2px}
+.lp-m-method-text{font-size:7.5px;color:rgba(45,42,38,.5);line-height:1.35}
+.lp-m-edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.lp-m-edu-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px;background:#fff;border-radius:5px;border:1px solid rgba(139,157,131,.05);text-align:center}
+.lp-m-edu-name{font-size:7px;font-weight:600;color:var(--charcoal)}
+.lp-m-edu-deg{font-size:6px;color:rgba(45,42,38,.4)}
+.lp-m-footer{padding:8px 16px;border-top:1px solid rgba(139,157,131,.07);text-align:center;font-size:7px;color:rgba(45,42,38,.3)}
+.lp-m-footer-social{display:flex;justify-content:center;gap:6px;margin-top:3px}
+.lp-m-footer-social span{width:14px;height:14px;border-radius:50%;background:rgba(139,157,131,.14);font-size:5px;color:var(--sage);display:flex;align-items:center;justify-content:center}
+
+/* ═══════════════════════════════════════════════════
+   WARM SAGE UI SYSTEM — shared by ALL platform mockups
+   ═══════════════════════════════════════════════════ */
+.ws{font-family:var(--fbody);background:var(--cream);color:var(--charcoal);position:relative;overflow:hidden}
+.ws *{box-sizing:border-box;margin:0;padding:0}
+
+/* Shared sidebar */
+.ws-sidebar{position:absolute;top:0;left:0;bottom:0;width:210px;background:#fff;border-right:1px solid rgba(139,157,131,.12);padding:20px 14px;display:flex;flex-direction:column}
+.ws-sb-logo{font-family:var(--fs);font-size:17px;font-weight:500;color:var(--charcoal);padding:0 10px;margin-bottom:24px;letter-spacing:-.01em}
+.ws-sb-nav{display:flex;flex-direction:column;gap:2px}
+.ws-sb-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:11.5px;color:rgba(45,42,38,.45);cursor:default;transition:all .15s}
+.ws-sb-item:hover{background:rgba(139,157,131,.06)}
+.ws-sb-item.active{background:rgba(139,157,131,.1);color:var(--sage);font-weight:500}
+.ws-sb-icon{width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.ws-sb-icon svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ws-sb-divider{height:1px;background:rgba(139,157,131,.1);margin:8px 0}
+.ws-sb-user{margin-top:auto;padding:12px 10px;border-top:1px solid rgba(139,157,131,.1);display:flex;align-items:center;gap:10px}
+.ws-sb-avatar{width:32px;height:32px;border-radius:50%;background:rgba(139,157,131,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--sage)}
+.ws-sb-name{font-size:11px;font-weight:500;color:var(--charcoal)}
+.ws-sb-role{font-size:9px;color:rgba(45,42,38,.4)}
+
+/* Shared main area */
+.ws-main{position:absolute;top:0;left:210px;right:0;bottom:0;padding:24px 28px;overflow-y:auto;background:var(--cream2)}
+.ws-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.ws-topbar h2{font-family:var(--fs);font-size:22px;font-weight:400;color:var(--charcoal)}
+.ws-btn{padding:7px 16px;border-radius:7px;font-size:11px;font-weight:500;cursor:default;transition:all .15s}
+.ws-btn-primary{background:var(--sage);color:#fff}
+.ws-btn-primary:hover{background:var(--sage-d)}
+.ws-btn-outline{background:transparent;color:var(--sage);border:1px solid var(--sage)}
+.ws-btn-ghost{background:rgba(139,157,131,.08);color:var(--sage);border:none}
+
+/* Shared cards */
+.ws-card{background:#fff;border-radius:10px;padding:16px;border:1px solid rgba(139,157,131,.1);margin-bottom:10px}
+.ws-card-title{font-size:11px;font-weight:600;color:var(--charcoal);margin-bottom:6px}
+.ws-card-sub{font-size:9.5px;color:rgba(45,42,38,.5);line-height:1.5}
+
+/* Shared stats */
+.ws-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.ws-stat{background:#fff;border-radius:10px;padding:14px 16px;border:1px solid rgba(139,157,131,.1)}
+.ws-stat-value{font-family:var(--fs);font-size:22px;font-weight:500;color:var(--charcoal)}
+.ws-stat-label{font-size:9px;color:rgba(45,42,38,.45);margin-top:2px}
+.ws-stat-badge{display:inline-block;font-size:8px;color:var(--sage);background:rgba(139,157,131,.1);padding:1px 6px;border-radius:3px;margin-top:4px}
+
+/* Shared client list */
+.ws-client{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(139,157,131,.06)}
+.ws-client:last-child{border-bottom:none}
+.ws-client-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.ws-client-avatar.active{background:rgba(139,157,131,.12);color:var(--sage)}
+.ws-client-avatar.new{background:rgba(45,212,191,.1);color:var(--accent3)}
+.ws-client-name{font-size:11.5px;font-weight:500;color:var(--charcoal)}
+.ws-client-meta{font-size:9px;color:rgba(45,42,38,.4)}
+.ws-client-status{font-size:9px;padding:3px 10px;border-radius:5px;font-weight:500;margin-left:auto}
+.ws-client-status.active{background:rgba(139,157,131,.1);color:var(--sage)}
+.ws-client-status.invited{background:rgba(45,212,191,.08);color:var(--accent3)}
+
+/* Shared form elements */
+.ws-input-group{margin-bottom:14px}
+.ws-input-label{font-size:10px;font-weight:500;color:rgba(45,42,38,.5);margin-bottom:5px;display:block}
+.ws-input{width:100%;padding:10px 14px;border:1px solid rgba(139,157,131,.2);border-radius:8px;font-size:12px;color:var(--charcoal);background:#fff;font-family:var(--fbody);outline:none;transition:border-color .15s}
+.ws-input:focus{border-color:var(--sage)}
+.ws-input::placeholder{color:rgba(45,42,38,.3)}
+.ws-input-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(45,42,38,.3)}
+.ws-input-wrap{position:relative}
+.ws-link{font-size:10px;color:var(--sage);text-decoration:none;cursor:default}
+.ws-link:hover{text-decoration:underline}
+.ws-divider-text{font-size:9px;color:rgba(45,42,38,.3);text-align:center;margin:14px 0;position:relative}
+.ws-divider-text::before,.ws-divider-text::after{content:'';position:absolute;top:50%;width:calc(50% - 30px);height:1px;background:rgba(139,157,131,.12)}
+.ws-divider-text::before{left:0}
+.ws-divider-text::after{right:0}
+
+/* ── LOGIN PAGE ── */
+.login-page{width:900px;height:600px;background:var(--cream);position:relative;overflow:hidden;font-family:var(--fbody)}
+.login-left{position:absolute;top:0;left:0;bottom:0;width:420px;background:linear-gradient(160deg,rgba(139,157,131,.15) 0%,rgba(139,157,131,.04) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;border-right:1px solid rgba(139,157,131,.1)}
+.login-left-quote{font-family:var(--fs);font-size:20px;font-weight:400;font-style:italic;color:var(--sage);text-align:center;line-height:1.4;max-width:280px;margin-bottom:12px}
+.login-left-attr{font-size:10px;color:rgba(45,42,38,.35);text-align:center}
+.login-left-deco{width:80px;height:80px;border-radius:50%;background:rgba(139,157,131,.08);margin-bottom:24px;display:flex;align-items:center;justify-content:center}
+.login-left-deco svg{width:32px;height:32px;stroke:var(--sage);fill:none;stroke-width:1.5}
+
+.login-right{position:absolute;top:0;left:420px;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 60px;background:var(--cream)}
+.login-logo{font-family:var(--fs);font-size:22px;font-weight:500;color:var(--charcoal);margin-bottom:6px}
+.login-subtitle{font-size:11px;color:rgba(45,42,38,.4);margin-bottom:32px}
+.login-form{width:100%;max-width:300px}
+.login-form .ws-input-group{margin-bottom:16px}
+.login-form .ws-btn{width:100%;text-align:center;padding:11px 0;font-size:12px;margin-top:4px}
+.login-footer{display:flex;justify-content:space-between;width:100%;max-width:300px;margin-top:16px}
+.login-lang{display:flex;gap:6px;margin-top:24px}
+.login-lang span{font-size:9px;color:rgba(45,42,38,.3);padding:3px 8px;border-radius:4px;cursor:default}
+.login-lang span.active{color:var(--sage);background:rgba(139,157,131,.1)}
+
+/* ── INVITE PAGE ── */
+.invite-page{width:900px;height:600px;background:var(--cream);position:relative;overflow:hidden;font-family:var(--fbody)}
+.invite-illustration{position:absolute;top:0;left:0;bottom:0;width:380px;background:linear-gradient(160deg,rgba(139,157,131,.18) 0%,rgba(139,157,131,.05) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;border-right:1px solid rgba(139,157,131,.1)}
+.invite-ill-circle{width:120px;height:120px;border-radius:50%;background:rgba(139,157,131,.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.invite-ill-circle svg{width:48px;height:48px;stroke:var(--sage);fill:none;stroke-width:1.5}
+.invite-ill-text{font-family:var(--fs);font-size:16px;font-weight:400;color:var(--sage);text-align:center;line-height:1.4;max-width:240px;font-style:italic}
+.invite-ill-name{font-size:10px;color:rgba(45,42,38,.35);margin-top:10px;text-align:center}
+
+.invite-form-area{position:absolute;top:0;left:380px;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 50px;background:var(--cream)}
+.invite-welcome{font-family:var(--fs);font-size:26px;font-weight:400;color:var(--charcoal);margin-bottom:6px;text-align:center}
+.invite-user-name{font-family:var(--fs);font-size:18px;font-weight:500;color:var(--sage);margin-bottom:8px;text-align:center}
+.invite-desc{font-size:11px;color:rgba(45,42,38,.5);text-align:center;margin-bottom:28px;max-width:280px;line-height:1.5}
+.invite-form{width:100%;max-width:300px}
+.invite-form .ws-input-group{margin-bottom:14px}
+.invite-form .ws-btn{width:100%;text-align:center;padding:11px 0;font-size:12px;margin-top:6px}
+.invite-timer{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:9px;color:rgba(45,42,38,.35)}
+.invite-timer svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8}
+.invite-timer strong{color:var(--sage);font-weight:600}
+
+/* ── ADMIN DASHBOARD ── */
+.admin-dash{width:900px;height:560px;font-family:var(--fbody);background:var(--cream2);color:var(--charcoal);position:relative;overflow:hidden}
+.admin-dash .ws-sidebar{background:#fff;border-right:1px solid rgba(139,157,131,.12)}
+.admin-dash .ws-main{background:var(--cream2)}
+
+/* ── CLIENT DASHBOARD ── */
+.client-dash{width:900px;height:560px;font-family:var(--fbody);background:var(--cream2);color:var(--charcoal);position:relative;overflow:hidden}
+.client-dash .ws-sidebar{background:#fff;border-right:1px solid rgba(139,157,131,.12)}
+.client-dash .ws-main{background:var(--cream2)}
+
+/* Session card */
+.ws-session{background:#fff;border-radius:10px;padding:16px;border:1px solid rgba(139,157,131,.12);margin-bottom:10px}
+.ws-session-date{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ws-session-dot{width:8px;height:8px;border-radius:50%;background:var(--sage)}
+.ws-session-day{font-size:11px;font-weight:600;color:var(--sage)}
+.ws-session-time{font-size:9.5px;color:rgba(45,42,38,.4)}
+.ws-session-details{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.ws-session-type{font-size:9.5px;color:rgba(45,42,38,.5)}
+.ws-session-btn{padding:4px 12px;background:var(--sage);color:#fff;border-radius:5px;font-size:9px;font-weight:500}
+
+/* ── BLOG PAGE ── */
+.blog-page{width:900px;height:620px;background:var(--cream);position:relative;overflow:hidden;font-family:var(--fbody);color:var(--charcoal)}
+.blog-nav{display:flex;align-items:center;padding:14px 36px;justify-content:space-between;border-bottom:1px solid rgba(139,157,131,.12)}
+.blog-nav-logo{font-family:var(--fs);font-size:17px;font-weight:500;color:var(--charcoal)}
+.blog-nav-links{display:flex;gap:16px;font-size:10.5px;color:rgba(45,42,38,.45);font-weight:500}
+.blog-nav-links .active-link{color:var(--sage);font-weight:600}
+.blog-nav-cta{font-size:10.5px;color:var(--sage);border:1px solid var(--sage);border-radius:5px;padding:4px 12px;font-weight:500}
+.blog-hero{padding:28px 36px 16px;text-align:center}
+.blog-hero h1{font-family:var(--fs);font-size:28px;font-weight:400;color:var(--charcoal);margin-bottom:6px}
+.blog-hero p{font-size:10.5px;color:rgba(45,42,38,.5);max-width:400px;margin:0 auto}
+.blog-featured{margin:0 36px 14px;background:#fff;border-radius:10px;overflow:hidden;border:1px solid rgba(139,157,131,.1);display:flex}
+.blog-featured-img{width:260px;background:linear-gradient(135deg,rgba(139,157,131,.2),rgba(139,157,131,.05));display:flex;align-items:center;justify-content:center}
+.blog-featured-img svg{width:40px;height:40px;stroke:var(--sage);fill:none;stroke-width:1.2;opacity:.5}
+.blog-featured-content{padding:16px 20px;flex:1}
+.blog-featured-tag{display:inline-block;font-size:8px;color:#fff;background:var(--sage);padding:2px 7px;border-radius:3px;font-weight:500;margin-bottom:6px}
+.blog-featured-title{font-family:var(--fs);font-size:15px;font-weight:500;color:var(--charcoal);line-height:1.3;margin-bottom:5px}
+.blog-featured-excerpt{font-size:9px;color:rgba(45,42,38,.5);line-height:1.5;margin-bottom:8px}
+.blog-featured-meta{font-size:8px;color:rgba(45,42,38,.3)}
+.blog-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 36px}
+.blog-card{background:#fff;border-radius:8px;overflow:hidden;border:1px solid rgba(139,157,131,.08)}
+.blog-card-img{height:70px;background:linear-gradient(135deg,rgba(139,157,131,.12),rgba(139,157,131,.03));display:flex;align-items:center;justify-content:center}
+.blog-card-img svg{width:20px;height:20px;stroke:var(--sage);fill:none;stroke-width:1.5;opacity:.4}
+.blog-card-content{padding:10px 12px}
+.blog-card-tag{font-size:7px;color:var(--sage);font-weight:500;margin-bottom:3px}
+.blog-card-title{font-family:var(--fs);font-size:10.5px;font-weight:500;color:var(--charcoal);line-height:1.3;margin-bottom:4px}
+.blog-card-excerpt{font-size:7.5px;color:rgba(45,42,38,.45);line-height:1.4;margin-bottom:5px}
+.blog-card-meta{font-size:7px;color:rgba(45,42,38,.3)}
+.blog-footer{padding:10px 36px;border-top:1px solid rgba(139,157,131,.08);display:flex;justify-content:space-between;font-size:8px;color:rgba(45,42,38,.25);margin-top:8px}
+
+/* ── EMAIL TEMPLATE ── */
+.email-template{width:680px;height:520px;background:#f0eeea;position:relative;overflow:hidden;font-family:var(--fbody);color:var(--charcoal)}
+.email-wrapper{margin:16px auto;width:600px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.email-header{background:var(--sage);padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
+.email-header-logo{font-family:var(--fs);font-size:16px;font-weight:500;color:#fff}
+.email-header-link{font-size:9px;color:rgba(255,255,255,.6);text-decoration:none}
+.email-body{padding:28px 32px}
+.email-greeting{font-family:var(--fs);font-size:18px;font-weight:400;color:var(--charcoal);margin-bottom:14px}
+.email-text{font-size:11px;color:rgba(45,42,38,.65);line-height:1.6;margin-bottom:18px}
+.email-text strong{color:var(--charcoal);font-weight:500}
+.email-cta-wrap{text-align:center;margin:20px 0}
+.email-cta{display:inline-block;padding:10px 28px;background:var(--sage);color:#fff;border-radius:6px;font-size:11.5px;font-weight:500;text-decoration:none}
+.email-note{font-size:9px;color:rgba(45,42,38,.35);text-align:center;margin-top:12px;line-height:1.5}
+.email-divider{height:1px;background:rgba(139,157,131,.1);margin:20px 0}
+.email-footer-info{font-size:8.5px;color:rgba(45,42,38,.35);line-height:1.5}
+.email-footer-info a{color:var(--sage);text-decoration:none}
+.email-footer-bar{background:rgba(139,157,131,.06);padding:12px 32px;text-align:center;font-size:8px;color:rgba(45,42,38,.25)}
+
+/* ── COST TABLE ── */
+.cost-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.82rem}
+.cost-table th{font-family:var(--fd);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);padding:.7rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+.cost-table td{padding:.6rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fg2)}
+.cost-table .cost-total{font-weight:600;color:var(--fg);border-top:2px solid var(--border)}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(24px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.stagger>*{opacity:0;transform:translateY(16px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.stagger.visible>*:nth-child(1){transition-delay:.05s;opacity:1;transform:translateY(0)}
+.stagger.visible>*:nth-child(2){transition-delay:.1s;opacity:1;transform:translateY(0)}
+.stagger.visible>*:nth-child(3){transition-delay:.15s;opacity:1;transform:translateY(0)}
+.stagger.visible>*:nth-child(4){transition-delay:.2s;opacity:1;transform:translateY(0)}
+.stagger.visible>*:nth-child(5){transition-delay:.25s;opacity:1;transform:translateY(0)}
+.stagger.visible>*:nth-child(6){transition-delay:.3s;opacity:1;transform:translateY(0)}
+
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 auto;max-width:800px}
+
+@media(max-width:768px){
+  .pres-section{padding:4rem 1.5rem}
+  .pres-nav{padding:.6rem 1rem}
+  .pres-nav .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="pres-nav">
+  <div class="logo">Артём <span>Бендер</span></div>
+  <div class="nav-links">
+    <a href="#landing">Сайт</a>
+    <a href="#platform">Платформа</a>
+    <a href="#costs">Стоимость</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     01 — САЙТ
+     ═══════════════════════════════════════════════════ -->
+<section class="pres-section wide" id="landing">
+  <div class="section-num">01 — САЙТ</div>
+  <h2 class="section-title">Warm <em>Sage</em></h2>
+  <p class="section-subtitle">Шалфейная палитра, серифные заголовки Cormorant Garamond, мягкий кремовый фон. Без острых углов. Спокойно и доверительно.</p>
+
+  <div style="margin-bottom:2rem">
+    <div class="mockup-card">
+      <div class="mockup-label">
+        <span class="ml-badge">ДЕСКТОП</span>
+        <h4>artem-bender.fr</h4>
+        <p>1440px · RU / FR / EN</p>
+      </div>
+      <div class="mu-viewport">
+        <div class="mu-inner">
+          <div class="lp">
+            <div class="lp-nav">
+              <div class="lp-nav-logo">Артём Бендер</div>
+              <div class="lp-nav-links"><span>Подход</span><span>С чем работаю</span><span>Обо мне</span><span>Образование</span><span class="active-link">Блог</span><span>Стоимость</span></div>
+              <div class="lp-nav-cta">Давайте поговорим</div>
+              <div class="lp-nav-lang">RU · FR · EN</div>
+            </div>
+            <div class="lp-hero">
+              <div class="lp-hero-label">Психолог · Онлайн и в Париже</div>
+              <h1>Всё происходит вокруг — а вы будто <em>за стеклом</em></h1>
+              <p class="lp-hero-sub">Это стекло появилось, когда было невыносимо. Оно спасло — но теперь за ним не видно жизни. Я помогаю найти слова тому, что молчит, и опору, чтобы вернуться к себе</p>
+              <div class="lp-hero-cta">Давайте поговорим</div>
+            </div>
+            <div class="lp-approach">
+              <div class="lp-method"><div class="lp-method-name">Когнитивная терапия</div><div class="lp-method-text">Когда мысли не дают покоя — помогает разглядеть: какие из них — правда, а какие — привычка тревожиться.</div></div>
+              <div class="lp-method"><div class="lp-method-name">Психоанализ</div><div class="lp-method-text">Иногда боль не уходит. Психоанализ помогает услышать то, что трудно услышать самому.</div></div>
+            </div>
+            <div class="lp-edu">
+              <div class="lp-edu-item"><div class="lp-edu-name">Université Paris VIII</div><div class="lp-edu-deg">магистратура · 2 года</div></div>
+              <div class="lp-edu-item"><div class="lp-edu-name">Montpellier 3</div><div class="lp-edu-deg">психоанализ</div></div>
+              <div class="lp-edu-item"><div class="lp-edu-name">Paris-Nanterre</div><div class="lp-edu-deg">клиническая психология</div></div>
+              <div class="lp-edu-item"><div class="lp-edu-name">Московская духовная академия</div><div class="lp-edu-deg">богословие</div></div>
+            </div>
+            <div class="lp-pricing">
+              <div class="lp-price-card"><div class="lp-price-label">Сессия</div><div class="lp-price-value">30 €</div><div class="lp-price-note">3 000 ₽ · 50 минут</div></div>
+              <div class="lp-price-card"><div class="lp-price-label">Онлайн</div><div class="lp-price-value">Везде</div><div class="lp-price-note">kMeet · шифрование</div></div>
+              <div class="lp-price-card"><div class="lp-price-label">Очно</div><div class="lp-price-value">Париж</div><div class="lp-price-note">И пригороды</div></div>
+            </div>
+            <div class="lp-cta"><h3>Справляться одному — <em>тяжело</em></h3><div class="lp-cta-btn">Давайте поговорим</div></div>
+            <div class="lp-footer"><span>© Артём Бендер · artem-bender.fr</span><div class="lp-footer-social"><span>TG</span><span>IG</span><span>WA</span><span>FB</span><span>@</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup-card" style="max-width:420px;margin:0 auto">
+    <div class="mockup-label">
+      <span class="ml-badge">МОБИЛЬНЫЙ</span>
+      <h4>Адаптивная верстка</h4>
+      <p>393px · все секции</p>
+    </div>
+    <div class="mu-mobile-viewport">
+      <div class="mu-mobile-inner">
+        <div class="lp-mobile">
+          <div class="lp-m-nav"><div class="lp-m-logo">Артём Бендер</div><div class="lp-m-burger"><span></span><span></span><span></span></div></div>
+          <div class="lp-m-hero">
+            <div class="lp-m-hero-label">Психолог · Онлайн и в Париже</div>
+            <h1>Всё происходит вокруг — а вы будто <em>за стеклом</em></h1>
+            <p class="lp-m-hero-sub">Это стекло появилось, когда было невыносимо. Оно спасло — но теперь за ним не видно жизни.</p>
+            <div class="lp-m-cta">Давайте поговорим</div>
+          </div>
+          <div class="lp-m-section">
+            <div class="lp-m-section-label">Подход</div>
+            <div class="lp-m-method"><div class="lp-m-method-name">Когнитивная терапия</div><div class="lp-m-method-text">Когда мысли не дают покоя — помогает разглядеть правду от шума.</div></div>
+            <div class="lp-m-method"><div class="lp-m-method-name">Психоанализ</div><div class="lp-m-method-text">Помогает услышать то, что трудно услышать самому.</div></div>
+          </div>
+          <div class="lp-m-section">
+            <div class="lp-m-section-label">Образование</div>
+            <div class="lp-m-edu-grid">
+              <div class="lp-m-edu-item"><div class="lp-m-edu-name">Paris VIII</div><div class="lp-m-edu-deg">магистратура · 2 года</div></div>
+              <div class="lp-m-edu-item"><div class="lp-m-edu-name">Montpellier 3</div><div class="lp-m-edu-deg">психоанализ</div></div>
+              <div class="lp-m-edu-item"><div class="lp-m-edu-name">Nanterre</div><div class="lp-m-edu-deg">клиническая психология</div></div>
+              <div class="lp-m-edu-item"><div class="lp-m-edu-name">МДА</div><div class="lp-m-edu-deg">богословие</div></div>
+            </div>
+          </div>
+          <div class="lp-m-footer"><span>© Артём Бендер</span><div class="lp-m-footer-social"><span>TG</span><span>IG</span><span>WA</span><span>FB</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     03 — ПЛАТФОРМА
+     ═══════════════════════════════════════════════════ -->
+<section class="pres-section wide" id="platform">
+  <div class="section-num">03 — ПЛАТФОРМА</div>
+  <h2 class="section-title">Единый стиль — от <em>логина</em> до <em>кабинета</em></h2>
+  <p class="section-subtitle">Все экраны платформы выдержаны в палитре Warm Sage: крем, шалфей, уголь. Никакого резкого контраста между публичным сайтом и авторизованной зоной.</p>
+
+  <!-- ── ROW 1: LOGIN + INVITE ── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0">
+
+    <!-- LOGIN PAGE -->
+    <div class="mockup-card">
+      <div class="mockup-label">
+        <span class="ml-badge">ВХОД</span>
+        <h4>Страница авторизации</h4>
+        <p>artem-bender.fr/login</p>
+      </div>
+      <div class="mu-viewport">
+        <div class="mu-inner">
+          <div class="login-page">
+            <div class="login-left">
+              <div class="login-left-deco">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke-dasharray="2 2"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="9" r="1"/></svg>
+              </div>
+              <div class="login-left-quote">«Найти слова тому, что молчит»</div>
+              <div class="login-left-attr">— Артём Бендер</div>
+            </div>
+            <div class="login-right">
+              <div class="login-logo">Praxis</div>
+              <div class="login-subtitle">Вход в личный кабинет</div>
+              <div class="login-form">
+                <div class="ws-input-group">
+                  <label class="ws-input-label">Электронная почта</label>
+                  <div class="ws-input-wrap">
+                    <input class="ws-input" type="email" placeholder="maria@example.com">
+                  </div>
+                </div>
+                <div class="ws-input-group">
+                  <label class="ws-input-label">Пароль</label>
+                  <div class="ws-input-wrap">
+                    <input class="ws-input" type="password" placeholder="••••••••">
+                    <span class="ws-input-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                  </div>
+                </div>
+                <div class="ws-btn ws-btn-primary" style="width:100%;text-align:center;padding:11px 0;font-size:12px;margin-top:4px">Войти</div>
+                <div class="login-footer">
+                  <span class="ws-link">Забыли пароль?</span>
+                  <span class="ws-link">Нет аккаунта?</span>
+                </div>
+              </div>
+              <div class="login-lang">
+                <span class="active">RU</span><span>FR</span><span>EN</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVITE PAGE -->
+    <div class="mockup-card">
+      <div class="mockup-label">
+        <span class="ml-badge">ПРИГЛАШЕНИЕ</span>
+        <h4>Установка пароля</h4>
+        <p>artem-bender.fr/invite/abc123</p>
+      </div>
+      <div class="mu-viewport">
+        <div class="mu-inner">
+          <div class="invite-page">
+            <div class="invite-illustration">
+              <div class="invite-ill-circle">
+                <svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 12v4h14a2 2 0 0 1 2 2c0 1.1-.9 2-2 2H6v-4"/><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/></svg>
+              </div>
+              <div class="invite-ill-text">Добро пожаловать<br>в личный кабинет</div>
+              <div class="invite-ill-name">Мария К.</div>
+            </div>
+            <div class="invite-form-area">
+              <div class="invite-welcome">Здравствуйте,</div>
+              <div class="invite-user-name">Мария</div>
+              <div class="invite-desc">Артём Бендер пригласил вас в личный кабинет. Установите пароль, чтобы войти.</div>
+              <div class="invite-form">
+                <div class="ws-input-group">
+                  <label class="ws-input-label">Новый пароль</label>
+                  <div class="ws-input-wrap">
+                    <input class="ws-input" type="password" placeholder="Минимум 8 символов">
+                  </div>
+                </div>
+                <div class="ws-input-group">
+                  <label class="ws-input-label">Повторите пароль</label>
+                  <div class="ws-input-wrap">
+                    <input class="ws-input" type="password" placeholder="••••••••">
+                  </div>
+                </div>
+                <div class="ws-btn ws-btn-primary" style="width:100%;text-align:center;padding:11px 0;font-size:12px;margin-top:6px">Продолжить</div>
+                <div class="invite-timer">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Ссылка действительна <strong>71 ч 23 мин</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROW 2: ADMIN + CLIENT DASHBOARDS ── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0">
+
+    <!-- ADMIN DASHBOARD -->
+    <div class="mockup-card">
+      <div class="mockup-label">
+        <span class="ml-badge">ПСИХОЛОГ</span>
+        <h4>Управление практикой</h4>
+        <p>artem-bender.fr/admin</p>
+      </div>
+      <div class="mu-viewport">
+        <div class="mu-inner">
+          <div class="admin-dash">
+            <div class="ws-sidebar">
+              <div class="ws-sb-logo">Артём Бендер</div>
+              <div class="ws-sb-nav">
+                <div class="ws-sb-item active">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                  Клиенты
+                </div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                  Расписание
+                </div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+                  Блог
+                </div>
+                <div class="ws-sb-divider"></div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                  Сообщения
+                </div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                  Оплата
+                </div>
+              </div>
+              <div class="ws-sb-user">
+                <div class="ws-sb-avatar">АБ</div>
+                <div>
+                  <div class="ws-sb-name">Артём Бендер</div>
+                  <div class="ws-sb-role">Психолог</div>
+                </div>
+              </div>
+            </div>
+            <div class="ws-main">
+              <div class="ws-topbar">
+                <h2>Клиенты</h2>
+                <div class="ws-btn ws-btn-primary">+ Пригласить</div>
+              </div>
+              <div class="ws-stats">
+                <div class="ws-stat">
+                  <div class="ws-stat-value">12</div>
+                  <div class="ws-stat-label">Всего клиентов</div>
+                  <div class="ws-stat-badge">+2 за месяц</div>
+                </div>
+                <div class="ws-stat">
+                  <div class="ws-stat-value">8</div>
+                  <div class="ws-stat-label">Сессий на неделе</div>
+                </div>
+                <div class="ws-stat">
+                  <div class="ws-stat-value">240 €</div>
+                  <div class="ws-stat-label">За текущий месяц</div>
+                  <div class="ws-stat-badge">+90 €</div>
+                </div>
+              </div>
+              <div class="ws-card">
+                <div class="ws-client">
+                  <div class="ws-client-avatar new">МК</div>
+                  <div><div class="ws-client-name">Мария К.</div><div class="ws-client-meta">Приглашён · 2 ч назад</div></div>
+                  <div class="ws-client-status invited">Приглашён</div>
+                </div>
+                <div class="ws-client">
+                  <div class="ws-client-avatar active">ДЛ</div>
+                  <div><div class="ws-client-name">Дмитрий Л.</div><div class="ws-client-meta">8 сессий · Последняя 2 дня назад</div></div>
+                  <div class="ws-client-status active">Активен</div>
+                </div>
+                <div class="ws-client">
+                  <div class="ws-client-avatar active">СП</div>
+                  <div><div class="ws-client-name">София П.</div><div class="ws-client-meta">3 сессии · Сегодня 14:00</div></div>
+                  <div class="ws-client-status active">Активен</div>
+                </div>
+                <div class="ws-client">
+                  <div class="ws-client-avatar new">АВ</div>
+                  <div><div class="ws-client-name">Анна В.</div><div class="ws-client-meta">Приглашён · 1 день</div></div>
+                  <div class="ws-client-status invited">Приглашён</div>
+                </div>
+                <div class="ws-client">
+                  <div class="ws-client-avatar active">ИГ</div>
+                  <div><div class="ws-client-name">Игорь Г.</div><div class="ws-client-meta">15 сессий · Завтра 10:00</div></div>
+                  <div class="ws-client-status active">Активен</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT DASHBOARD -->
+    <div class="mockup-card">
+      <div class="mockup-label">
+        <span class="ml-badge">КЛИЕНТ</span>
+        <h4>Сессии и оплата</h4>
+        <p>artem-bender.fr/dashboard</p>
+      </div>
+      <div class="mu-viewport">
+        <div class="mu-inner">
+          <div class="client-dash">
+            <div class="ws-sidebar">
+              <div class="ws-sb-logo">Артём Бендер</div>
+              <div class="ws-sb-nav">
+                <div class="ws-sb-item active">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                  Главная
+                </div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                  Мои сессии
+                </div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                  Оплата
+                </div>
+                <div class="ws-sb-divider"></div>
+                <div class="ws-sb-item">
+                  <div class="ws-sb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+                  Настройки
+                </div>
+              </div>
+              <div class="ws-sb-user">
+                <div class="ws-sb-avatar">МК</div>
+                <div>
+                  <div class="ws-sb-name">Мария К.</div>
+                  <div class="ws-sb-role">Клиент</div>
+                </div>
+              </div>
+            </div>
+            <div class="ws-main">
+              <div class="ws-topbar">
+                <h2>Добрый день, Мария</h2>
+                <div class="ws-btn ws-btn-primary">Записаться</div>
+              </div>
+              <div class="ws-session">
+                <div class="ws-session-date">
+                  <div class="ws-session-dot"></div>
+                  <div class="ws-session-day">Сегодня</div>
+                  <div class="ws-session-time">10:00 — 10:50</div>
+                </div>
+                <div class="ws-session-details">
+                  <div class="ws-session-type">Онлайн · kMeet · Шифрование E2E</div>
+                  <div class="ws-session-btn">Подключиться</div>
+                </div>
+              </div>
+              <div class="ws-session" style="opacity:.65">
+                <div class="ws-session-date">
+                  <div class="ws-session-dot" style="background:rgba(45,42,38,.2)"></div>
+                  <div class="ws-session-day" style="color:rgba(45,42,38,.5)">Четверг</div>
+                  <div class="ws-session-time">28 мая · 15:00</div>
+                </div>
+                <div class="ws-session-details">
+                  <div class="ws-session-type">Онлайн · kMeet</div>
+                  <div class="ws-session-btn" style="background:rgba(139,157,131,.15);color:var(--sage)">Записаться</div>
+                </div>
+              </div>
+              <div class="ws-card" style="margin-top:10px">
+                <div class="ws-card-title">История сессий</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(139,157,131,.06);font-size:9.5px">
+                  <span style="color:rgba(45,42,38,.5)">22 мая</span>
+                  <span style="color:var(--charcoal)">Сессия 5</span>
+                  <span style="color:var(--sage)">30 €</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(139,157,131,.06);font-size:9.5px">
+                  <span style="color:rgba(45,42,38,.5)">15 мая</span>
+                  <span style="color:var(--charcoal)">Сессия 4</span>
+                  <span style="color:var(--sage)">30 €</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:9.5px">
+                  <span style="color:rgba(45,42,38,.5)">8 мая</span>
+                  <span style="color:var(--charcoal)">Сессия 3</span>
+                  <span style="color:var(--sage)">30 €</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROW 3: BLOG PAGE ── -->
+  <div style="margin:2rem 0">
+    <div class="mockup-card">
+      <div class="mockup-label">
+        <span class="ml-badge">БЛОГ</span>
+        <h4>Страница блога</h4>
+        <p>artem-bender.fr/blog</p>
+      </div>
+      <div class="mu-viewport">
+        <div class="mu-inner">
+          <div class="blog-page">
+            <div class="blog-nav">
+              <div class="blog-nav-logo">Артём Бендер</div>
+              <div class="blog-nav-links">
+                <span>Подход</span>
+                <span>Обо мне</span>
+                <span class="active-link">Блог</span>
+                <span>Стоимость</span>
+              </div>
+              <div class="blog-nav-cta">Давайте поговорим</div>
+            </div>
+            <div class="blog-hero">
+              <h1>Блог</h1>
+              <p>О том, что тревожит, молчит и просит слов. Пишу о психике так, чтобы было понятно — и немного легче.</p>
+            </div>
+            <div class="blog-featured">
+              <div class="blog-featured-img">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+              </div>
+              <div class="blog-featured-content">
+                <div class="blog-featured-tag">Новое</div>
+                <div class="blog-featured-title">Стекло, которое спасло: как защитные механизмы становятся преградой</div>
+                <div class="blog-featured-excerpt">Диссоциация — не поломка. Это древний механизм выживания, который включается, когда психика не может вынести происходящее. Она спасла вас в ситуации, из которой не было выхода. Но, возможно, пришло время мягко поблагодарить её и начать путь домой.</div>
+                <div class="blog-featured-meta">22 мая 2026 · 8 мин чтения</div>
+              </div>
+            </div>
+            <div class="blog-grid">
+              <div class="blog-card">
+                <div class="blog-card-img">
+                  <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </div>
+                <div class="blog-card-content">
+                  <div class="blog-card-tag">Тревога</div>
+                  <div class="blog-card-title">Тревога — не враг. Она пытается сказать то, что вы не слышите</div>
+                  <div class="blog-card-excerpt">Тревога — это не случайность. Это сигнал, который повторяется, пока его не услышат.</div>
+                  <div class="blog-card-meta">15 мая · 5 мин</div>
+                </div>
+              </div>
+              <div class="blog-card">
+                <div class="blog-card-img">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <div class="blog-card-content">
+                  <div class="blog-card-tag">Отношения</div>
+                  <div class="blog-card-title">Когда «всё хорошо» — но одиноко: о скрытой боли в отношениях</div>
+                  <div class="blog-card-excerpt">Иногда самые тихие отношения — самые больные. Не потому что плохо, а потому что пусто.</div>
+                  <div class="blog-card-meta">3 мая · 6 мин</div>
+                </div>
+              </div>
+              <div class="blog-card">
+                <div class="blog-card-img">
+                  <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="blog-card-content">
+                  <div class="blog-card-tag">Границы</div>
+                  <div class="blog-card-title">Как понять, что пора к психологу — и почему это не слабость</div>
+                  <div class="blog-card-excerpt">Обращение к специалисту — не признак поражения. Это решение человека, который устал нести в одиночку.</div>
+                  <div class="blog-card-meta">24 апреля · 4 мин</div>
+                </div>
+              </div>
+            </div>
+            <div class="blog-footer">
+              <span>© Артём Бендер · artem-bender.fr</span>
+              <span>Telegram · Instagram</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROW 4: EMAIL TEMPLATE ── -->
+  <div style="margin:2rem 0">
+    <div class="mockup-card" style="max-width:760px;margin:0 auto">
+      <div class="mockup-label">
+        <span class="ml-badge">EMAIL</span>
+        <h4>Приглашение в кабинет</h4>
+        <p>Шаблон письма — Infomaniak SMTP</p>
+      </div>
+      <div class="mu-email-viewport">
+        <div class="mu-email-inner">
+          <div class="email-template">
+            <div class="email-wrapper">
+              <div class="email-header">
+                <div class="email-header-logo">Артём Бендер</div>
+                <div class="email-header-link">artem-bender.fr</div>
+              </div>
+              <div class="email-body">
+                <div class="email-greeting">Здравствуйте, Мария</div>
+                <div class="email-text">
+                  Артём Бендер пригласил вас в личный кабинет на <strong>artem-bender.fr</strong>.<br><br>
+                  В кабинете вы сможете:<br>
+                  — записываться на сессии в удобное время<br>
+                  — подключаться к видеосессиям через kMeet<br>
+                  — просматривать историю и оплату<br><br>
+                  Чтобы войти, установите пароль по ссылке ниже. Ссылка действительна 72 часа.
+                </div>
+                <div class="email-cta-wrap">
+                  <div class="email-cta">Перейти в кабинет</div>
+                </div>
+                <div class="email-note">Если вы не ожидали это письмо — просто проигнорируйте его.</div>
+                <div class="email-divider"></div>
+                <div class="email-footer-info">
+                  Артём Бендер · Психолог<br>
+                  artem-bender.fr · Париж, Франция<br>
+                  <a href="#">Отписаться от рассылки</a>
+                </div>
+              </div>
+              <div class="email-footer-bar">
+                © 2026 Артём Бендер · artem-bender.fr · Это письмо отправлено на maria@example.com
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     04 — СТОИМОСТЬ
+     ═══════════════════════════════════════════════════ -->
+<section class="pres-section narrow" id="costs">
+  <div class="section-num">04 — СТОИМОСТЬ</div>
+  <h2 class="section-title">Ежемесячные <em>расходы</em></h2>
+
+  <table class="cost-table">
+    <thead><tr><th>Сервис</th><th>Что входит</th><th>€/мес</th></tr></thead>
+    <tbody>
+      <tr><td>Infomaniak kSuite</td><td>Почта + kDrive + kChat + kMeet</td><td>1.76</td></tr>
+      <tr><td>Infomaniak Domain</td><td>artem-bender.fr</td><td>~0.75</td></tr>
+      <tr><td>Infomaniak Custom Brand</td><td>kMeet под вашим брендом</td><td>6.00</td></tr>
+      <tr><td>Hetzner VPS</td><td>Сервер 2vCPU/4GB</td><td>4.50</td></tr>
+      <tr><td>Hetzner Snapshot</td><td>Бэкап</td><td>~1.04</td></tr>
+      <tr class="cost-total"><td><strong>Итого (с Custom Brand)</strong></td><td></td><td><strong>€14.05</strong></td></tr>
+      <tr class="cost-total"><td><strong>Итого (без Custom Brand)</strong></td><td></td><td><strong>€8.05</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<script>
+const reveals = document.querySelectorAll('.reveal, .stagger');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+function scaleMockups() {
+  document.querySelectorAll('.mu-viewport').forEach(vp => {
+    const card = vp.closest('.mockup-card'); if (!card) return;
+    const inner = vp.querySelector('.mu-inner'); if (!inner) return;
+    const scale = card.clientWidth / parseFloat(getComputedStyle(inner).width);
+    inner.style.transform = 'scale(' + scale + ')';
+    vp.style.height = (620 * scale) + 'px';
+  });
+  document.querySelectorAll('.mu-mobile-viewport').forEach(vp => {
+    const card = vp.closest('.mockup-card'); if (!card) return;
+    const inner = vp.querySelector('.mu-mobile-inner'); if (!inner) return;
+    const scale = card.clientWidth / parseFloat(getComputedStyle(inner).width);
+    inner.style.transform = 'scale(' + scale + ')';
+    vp.style.height = (720 * scale) + 'px';
+  });
+  document.querySelectorAll('.mu-email-viewport').forEach(vp => {
+    const card = vp.closest('.mockup-card'); if (!card) return;
+    const inner = vp.querySelector('.mu-email-inner'); if (!inner) return;
+    const scale = card.clientWidth / parseFloat(getComputedStyle(inner).width);
+    inner.style.transform = 'scale(' + scale + ')';
+    vp.style.height = (520 * scale) + 'px';
+  });
+}
+window.addEventListener('load', scaleMockups);
+window.addEventListener('resize', scaleMockups);
+
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.pres-nav .nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 200) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>
