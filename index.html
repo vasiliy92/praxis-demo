@@ -1003,27 +1003,33 @@ function openLightbox(card) {
   // Clone the content
   lbContent.innerHTML = inner.innerHTML;
 
-  // Calculate modal size: 82vw max, but scale content to fit
-  const maxW = window.innerWidth * 0.82;
-  const maxH = window.innerHeight * 0.78;
+  // Calculate modal size: 90vw max, but scale content to fit
+  const maxW = window.innerWidth * 0.90;
+  const maxH = window.innerHeight * 0.85;
   const contentW = parseFloat(getComputedStyle(inner).width);
   const headerH = 46;
 
-  // Scale to fit width
+  // Scale to fit viewport width
   let scale = maxW / contentW;
   // But also check height fits
   const totalH = naturalH * scale + headerH;
   if (totalH > maxH) {
     scale = (maxH - headerH) / naturalH;
   }
-  // Don't scale beyond 1.0 (native size)
-  scale = Math.min(scale, 1.0);
+
+  // Ensure modal is always visibly larger than the card (at least 1.5x card width)
+  const minScale = (card.clientWidth * 1.5) / contentW;
+  scale = Math.max(scale, minScale);
+
+  // Re-check viewport bounds after minimum
+  if (contentW * scale > maxW) scale = maxW / contentW;
+  if (naturalH * scale + headerH > maxH) scale = (maxH - headerH) / naturalH;
 
   const modalW = contentW * scale;
   const modalH = naturalH * scale + headerH;
 
   lbModal.style.width = modalW + 'px';
-  lbModal.style.maxWidth = '82vw';
+  lbModal.style.maxWidth = '90vw';
   lbContent.style.width = contentW + 'px';
   lbContent.style.transform = 'scale(' + scale + ')';
   lbViewport.style.height = (naturalH * scale) + 'px';
